@@ -1,0 +1,52 @@
+/* styles/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Home Page Styles */
+.home-main {
+  @apply p-10 text-center space-y-10 bg-gradient-to-br from-[#fef9f7] to-[#f0f4ff] min-h-screen;
+}
+
+.home-heading {
+  @apply text-5xl font-extrabold text-pink-600 drop-shadow-sm;
+}
+
+.home-subheading {
+  @apply text-gray-700 text-lg;
+}
+
+.home-cards {
+  @apply grid md:grid-cols-3 gap-6 max-w-5xl mx-auto;
+}
+
+.home-card {
+  @apply rounded-xl p-6 shadow-md transition-all duration-300 flex flex-col items-center hover:shadow-xl;
+}
+
+.home-title {
+  @apply font-semibold text-lg;
+}
+
+.home-description {
+  @apply text-sm mt-1;
+}
+
+.home-icon {
+  @apply w-10 h-10 mb-2;
+}
+
+/* Specific card variants */
+.dashboard-card {
+  @apply bg-pink-100 text-pink-800 hover:bg-pink-200;
+}
+
+.suggestion-card {
+  @apply bg-purple-100 text-purple-800 hover:bg-purple-200;
+}
+
+.context-card {
+  @apply bg-sky-100 text-sky-800 hover:bg-sky-200;
+}

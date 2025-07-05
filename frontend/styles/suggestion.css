@@ -1,0 +1,146 @@
+/* styles/suggestion.css */
+
+.suggestion-container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-size: 16px;
+  color: #1e293b; /* slate-800 */
+}
+
+.suggestion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0f766e; /* teal-800 */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Context Input */
+.context-section {
+  background-color: #fafafa; /* zinc-50 */
+  border: 1px solid #cbd5e1; /* slate-300 */
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  margin-bottom: 2rem;
+}
+
+.context-label {
+  font-weight: 600;
+  color: #334155;
+  font-size: 15px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.context-textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 15px;
+  resize: vertical;
+  outline: none;
+}
+
+.context-textarea:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 2px #99f6e4;
+}
+
+.context-add-btn {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  margin-top: 0.5rem;
+  transition: 0.2s;
+}
+
+.context-add-btn:hover {
+  background-color: #cbd5e1;
+}
+
+.context-list {
+  list-style: disc;
+  padding-left: 1rem;
+  font-size: 15px;
+  color: #334155;
+  margin-top: 1rem;
+}
+
+.generate-btn {
+  width: 100%;
+  background-color: #0d9488;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.generate-btn:hover {
+  background-color: #0f766e;
+}
+
+/* AI Task Section */
+.ai-task {
+  background-color: #fff;
+  border: 1px solid #34d399;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+}
+
+.ai-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #047857;
+  margin-bottom: 1rem;
+}
+
+.ai-label {
+  display: block;
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 0.25rem;
+  color: #334155;
+}
+
+.ai-input,
+.ai-textarea,
+.ai-select,
+.ai-date {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.ai-input:focus,
+.ai-textarea:focus,
+.ai-select:focus,
+.ai-date:focus {
+  border-color: #34d399;
+  box-shadow: 0 0 0 2px #bbf7d0;
+}
+
+.save-btn {
+  width: 100%;
+  background-color: #059669;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.save-btn:hover {
+  background-color: #047857;
+}
