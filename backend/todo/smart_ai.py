@@ -1,104 +1,89 @@
 import datetime
-import os
 from collections import Counter
 import google.generativeai as genai
+from .logging.ai_processor_logger import logger
 
-# === Gemini API Setup ===
-genai.configure(api_key="your_gemini_api_key")  # Replace with your actual key or use an env var
+genai.configure(api_key="AIzaSyAY2lnQkS70ECLLu20Dfvxa1GFmwu26GkE")
+model = genai.GenerativeModel(model_name="gemini-2.5-pro")
+response = model.generate_content("Extract 5 keywords from: Build a Django REST API with context.")
 
-model = genai.GenerativeModel("gemini-pro")
 
-# === Task Category & Priority Setup ===
-
-CATEGORY_KEYWORDS = {
-    "Frontend": ["ui", "interface", "component", "button", "form", "layout", "css", "tailwind", "react", "html"],
-    "Backend": ["api", "database", "server", "django", "logic", "auth", "model", "query", "view", "endpoint"],
-}
-
-CATEGORY_CHOICES = [
-    ("Frontend", "Frontend"),
-    ("Backend", "Backend"),
-]
-
-PRIORITY_CHOICES = [
-    ("High", "High"),
-    ("Medium", "Medium"),
-    ("Low", "Low"),
-]
-
-# === Replace SpaCy with Gemini for keyword extraction ===
-def extract_keywords(text):
-    prompt = f"""
-    Extract the 10 most important keywords from the following text. 
-    Only return lowercase words, separated by commas. Do not include stopwords like "the", "is", etc.
-
-    Text:
-    {text}
-    """
-
-    try:
-        response = model.generate_content(prompt)
-        content = response.text.strip()
-        keywords = [word.strip() for word in content.lower().split(",") if word.strip().isalpha()]
-        return keywords
-    except Exception as e:
-        print("Gemini error:", e)
-        return []
-
-# === Core AI-assisted Logic ===
-
-def analyze_context(context_data):
-    all_text = " ".join([entry["content"] for entry in context_data])
-    keywords = extract_keywords(all_text)
-    freq = Counter(keywords)
-    urgency_score = sum(
-        3 if word in ["urgent", "asap", "immediately"] else 1
-        for word in keywords
-    )
-    return {
-        "keywords": [word for word, _ in freq.most_common(10)],
-        "urgency_score": urgency_score,
+class TaskAIProcessor:
+    CATEGORY_KEYWORDS = {
+        "Frontend": ["ui", "interface", "component", "button", "form", "layout", "css", "tailwind", "react", "html"],
+        "Backend": ["api", "database", "server", "django", "logic", "auth", "model", "query", "view", "endpoint"],
     }
 
-def suggest_category(keywords):
-    scores = {
-        category: sum(1 for word in keywords if word in category_keywords)
-        for category, category_keywords in CATEGORY_KEYWORDS.items()
-    }
-    return max(scores, key=scores.get) if scores else "Frontend"
+    def extract_keywords(self, text):
+        prompt = f"""
+        Extract 10 important keywords (lowercase, comma-separated) from the following:
+        {text}
+        """
+        try:
+            response = model.generate_content(prompt)
+            content = response.text.strip()
+            keywords = [w.strip() for w in content.lower().split(",") if w.strip().isalpha()]
+            logger.info("Keywords: %s", keywords)
+            return keywords
+        except Exception as e:
+            logger.exception("Gemini error: %s", e)
+            return []
 
-def suggest_priority(urgency_score):
-    if urgency_score >= 15:
-        return "High"
-    elif urgency_score >= 8:
-        return "Medium"
-    else:
-        return "Low"
+    def analyze_context(self, context_data):
+        all_text = " ".join([
+            entry["content"] if isinstance(entry, dict) and "content" in entry else str(entry)
+            for entry in context_data
+        ])
+        keywords = self.extract_keywords(all_text)
+        freq = Counter(keywords)
+        urgency_score = sum(
+            3 if word in ["urgent", "asap", "immediately"] else 1
+            for word in keywords
+        )
+        return {
+            "keywords": [word for word, _ in freq.most_common(10)],
+            "urgency_score": urgency_score
+        }
 
-def suggest_deadline(priority):
-    days_map = {"High": 1, "Medium": 3, "Low": 5}
-    days = days_map.get(priority, 3)
-    return str(datetime.date.today() + datetime.timedelta(days=days))
+    def suggest_category(self, keywords):
+        scores = {
+            cat: sum(1 for word in keywords if word in words)
+            for cat, words in self.CATEGORY_KEYWORDS.items()
+        }
+        return max(scores, key=scores.get)
 
-def enhance_description(desc, context):
-    context_summary = " ".join([entry["content"] for entry in context[:2]])
-    return f"{desc.strip()} (Context: {context_summary.strip()})"
+    def suggest_priority(self, urgency_score):
+        return "High" if urgency_score >= 15 else "Medium" if urgency_score >= 8 else "Low"
 
-def auto_create_task_from_context(context_data):
-    analysis = analyze_context(context_data)
-    keywords = analysis["keywords"]
-    urgency_score = analysis["urgency_score"]
+    def suggest_deadline(self, priority):
+        days = {"High": 1, "Medium": 3, "Low": 5}.get(priority, 3)
+        return str(datetime.date.today() + datetime.timedelta(days=days))
 
-    category = suggest_category(keywords)
-    priority = suggest_priority(urgency_score)
-    deadline = suggest_deadline(priority)
-    title = f"{category} Task"
-    description = enhance_description("Auto-created task", context_data)
+    def enhance_description(self, desc, context):
+        summary = " ".join([
+            entry["content"] if isinstance(entry, dict) and "content" in entry else str(entry)
+            for entry in context[:2]
+        ])
+        return f"{desc.strip()} (Context: {summary.strip()})"
 
-    return {
-        "title": title,
-        "description": description,
-        "category": category,
-        "priority": priority,
-        "deadline": deadline,
-    }
+    def auto_create_task_from_context(self, context_data):
+        try:
+            analysis = self.analyze_context(context_data)
+            category = self.suggest_category(analysis["keywords"])
+            priority = self.suggest_priority(analysis["urgency_score"])
+            deadline = self.suggest_deadline(priority)
+            description = self.enhance_description("Auto-created task", context_data)
+
+            task_data = {
+                "title": f"{category} Task",
+                "description": description,
+                "category": category,
+                "priority": priority,
+                "deadline": deadline,
+            }
+
+            logger.info("Generated Task: %s", task_data)
+            return task_data
+        except Exception as e:
+            logger.exception("Auto-create error: %s", e)
+            return {}

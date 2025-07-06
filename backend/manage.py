@@ -1,10 +1,15 @@
-#!/usr/bin/env python
-import os
-import sys
-if __name__ == '__main__':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_todo.settings')
+import logging
+from main import DjangoManager
+
+logging.basicConfig(level=logging.INFO)
+
+def run_application():
+    """Main function to run the application."""
     try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError("Couldn't import Django.") from exc
-    execute_from_command_line(sys.argv)
+        DjangoManager().manage()
+    except Exception as e:
+        logging.exception("An unexpected error occurred: %s", e)
+
+
+if __name__ == '__main__':
+    run_application()
