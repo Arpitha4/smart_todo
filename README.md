@@ -15,7 +15,8 @@
               - List all Daily Context :- https://github.com/user-attachments/assets/3b8628ad-bd57-4e0d-ace1-92d2ddb0e79b
 
 2. Setup instructions for running the application
-       1. Backend setup instructions 
+   
+        1. Backend setup instructions 
                - Prerequisites :-
                     -> Python 3.8 or higher
                     -> pip (Python package manager)
@@ -57,8 +58,10 @@
                       http://localhost:3000/
    
 
-3. API documentation :- 
-4. Sample tasks and AI suggestions from your system :-
+4. API documentation :- 
+
+5. Sample tasks and AI suggestions from your system :-
+   
          - AI-generated tasks include auto-suggested deadline, priority, and category based on context analysis.
          - sample task image :- https://github.com/user-attachments/assets/5abf57be-0e50-4595-a2c9-ab55d9e21adf
          - sample task explnation:
