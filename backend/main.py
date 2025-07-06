@@ -1,6 +1,7 @@
 import os
 import sys
 from scripts.config.app_configuration import TemplateDetails
+from django.core.management import execute_from_command_line
 from scripts.logging.logger import logger
 
 
@@ -35,7 +36,6 @@ class DjangoManager:
     def run(self):
         """Execute Django command-line interface."""
         try:
-            from django.core.management import execute_from_command_line
             logger.info("Executing Django command: %s", ' '.join(sys.argv))
             execute_from_command_line(sys.argv)
         except ImportError:
@@ -45,9 +45,9 @@ class DjangoManager:
             logger.exception("Unexpected error occurred while running Django.")
             sys.exit(1)
 
-    def app(self):
+    def manage(self):
         """Entry point."""
         try:
-            manager = DjangoManager().run()
+            DjangoManager().run()
         except Exception as e:
             logger.exception("Failed to start DjangoManager: %s", e)
