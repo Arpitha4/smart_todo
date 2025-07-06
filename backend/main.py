@@ -1,9 +1,11 @@
 import os
 import sys
-from scripts.config.app_configuration import TemplateDetails
+import logging
+from todo.config.app_configuration import TemplateDetails
 from django.core.management import execute_from_command_line
-from scripts.logging.logger import logger
+from todo.logging.logger import logger
 
+logging.basicConfig(level=logging.INFO)
 
 class DjangoManager:
     """Handles environment setup, logging, and Django command execution."""
@@ -33,7 +35,7 @@ class DjangoManager:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
         logger.info("Environment set with DJANGO_SETTINGS_MODULE = %s", settings_module)
 
-    def run(self):
+    def manage(self):
         """Execute Django command-line interface."""
         try:
             logger.info("Executing Django command: %s", ' '.join(sys.argv))
@@ -44,10 +46,3 @@ class DjangoManager:
         except Exception:
             logger.exception("Unexpected error occurred while running Django.")
             sys.exit(1)
-
-    def manage(self):
-        """Entry point."""
-        try:
-            DjangoManager().run()
-        except Exception as e:
-            logger.exception("Failed to start DjangoManager: %s", e)

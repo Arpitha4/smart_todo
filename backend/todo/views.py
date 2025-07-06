@@ -89,10 +89,18 @@ class AutoCreateTaskView(APIView):
             return Response({"error": "No context provided"}, status=400)
 
         try:
-            auto_create_task_from_context = TaskAIProcessor.auto_create_task_from_context
-            ai_task = auto_create_task_from_context(context_data)
-            serializer = TaskSerializer(data=ai_task)
+            # Extract raw content from dicts if present
+            extracted_context = []
+            for item in context_data:
+                if isinstance(item, dict) and "content" in item:
+                    extracted_context.append(item["content"])
+                elif isinstance(item, str):
+                    extracted_context.append(item)
 
+            ai_processor = TaskAIProcessor()
+            ai_task = ai_processor.auto_create_task_from_context(extracted_context)
+
+            serializer = TaskSerializer(data=ai_task)
             if serializer.is_valid():
                 task = serializer.save()
                 logger.info("AI-generated task created: %s", task.title)

@@ -1,6 +1,7 @@
 
-log/parameter_automation.log
-.idea/workspace.xml
+logs/ai_processor.log
+logs/debug.log
+/frontend/node_modules
 log
 testing
 venv

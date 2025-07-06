@@ -1,5 +1,3 @@
-# scripts/config/app_configurations.py
-
 class EnvironmentDetails:
     access_token = 'your-access-token-from-env-or-secure-store'
 

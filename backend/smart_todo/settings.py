@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Local apps
-    'scripts',
+    'todo',
 ]
 
 # Middleware
