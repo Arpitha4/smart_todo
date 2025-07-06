@@ -58,7 +58,7 @@
                       http://localhost:3000/
    
 
-4. API documentation :- 
+4. API documentation :- https://github.com/Arpitha4/smart_todo/blob/dev-06072025/Documentation/Api%20Documentation.docx
 
 5. Sample tasks and AI suggestions from your system :-
    
@@ -73,7 +73,7 @@
                  Priority: Medium
                  Suggested Deadline: 2025-07-09 (i.e., 1 day from the task creation date)
                Explanation:
-                 The keyword "image" suggests a user interface or visual concern, leading the AI to classify it under the Frontend category.The phrase implies moderate urgency, prompting the AI to assign a Medium priority.Based                          on the priority level, the AI calculates an appropriate deadline using predefined rules (e.g., Medium priority → 1-day deadline).
+                 The keyword "image" suggests a user interface or visual concern, leading the AI to classify it under the Frontend category.The phrase implies moderate urgency, prompting the AI to assign a Medium priority.Based on the priority level, the AI calculates an appropriate deadline using predefined rules (e.g., Medium priority → 1-day deadline).
 
 
       
