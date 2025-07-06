@@ -6,6 +6,7 @@ logs/debug.log
 log
 testing
 venv
+.idea
 *.xml
 *.xml
 *.log
@@ -14,7 +15,6 @@ venv
 *.pyc
 *.log
 *.log
-log/parameter_automation.log
 *.log
 *.pyc
 *.log

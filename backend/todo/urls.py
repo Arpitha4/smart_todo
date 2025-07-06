@@ -1,13 +1,8 @@
 from django.urls import path
-from .views import (
-    TaskListAPIView,
-    CategoryListAPIView,
-    ContextEntryListAPIView,
-    TaskCreateAPIView,
-    AutoCreateTaskView,
-    ContextEntryCreateAPIView,
-    TaskUpdateAPIView,
-)
+from .views.tasks import TaskListAPIView, TaskCreateAPIView, TaskUpdateAPIView
+from .views.context import ContextEntryListAPIView, ContextEntryCreateAPIView
+from .views.ai import AutoCreateTaskView
+from .views.categories import CategoryListAPIView
 
 urlpatterns = [
     path('tasks/', TaskListAPIView.as_view()),                      # Get list of all tasks
