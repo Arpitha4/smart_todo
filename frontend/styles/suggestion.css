@@ -144,3 +144,106 @@
 .save-btn:hover {
   background-color: #047857;
 }
+
+.saved-context-title{
+   font-weight: bold;
+   font-size: 19px;
+   color: #334155;
+   text-align: center;
+}
+
+.use-context-btn {
+  background-color: #059669;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.use-context-btn:hover {
+  background-color: #047857;
+}
+
+/* Container Styles */
+.suggestion-main {
+  @apply min-h-screen p-6 bg-white text-gray-900 font-sans;
+}
+
+/* Titles */
+.suggestion-title {
+  @apply text-3xl font-bold mb-6 text-center text-blue-600;
+}
+
+.saved-context-title {
+  @apply text-xl font-semibold mb-4 text-blue-600;
+}
+
+.ai-title {
+  @apply text-2xl font-semibold mb-4 text-blue-600;
+}
+
+/* Context Input Section */
+.context-section {
+  @apply bg-blue-50 border border-blue-200 p-4 rounded-lg mb-8 shadow-sm;
+}
+
+.context-label {
+  @apply block text-base font-semibold mb-2 text-blue-700;
+}
+
+.context-textarea {
+  @apply w-full border border-blue-300 rounded-md p-2 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.generate-btn {
+  @apply bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-300;
+}
+
+/* Saved Context Entries */
+.saved-context-section {
+  @apply mb-10;
+}
+
+.saved-context-list {
+  @apply space-y-4;
+}
+
+.saved-context-item {
+  @apply bg-gray-100 p-4 rounded-md flex justify-between items-start border border-gray-200;
+}
+
+.use-context-btn {
+  @apply ml-4 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm whitespace-nowrap;
+}
+
+/* AI Task Edit Form */
+.ai-task {
+  @apply bg-white border border-blue-300 rounded-lg p-6 shadow-md;
+}
+
+.ai-label {
+  @apply block text-sm font-medium text-blue-700;
+}
+
+.ai-input {
+  @apply w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400;
+}
+
+.ai-textarea {
+  @apply w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400;
+}
+
+.ai-select {
+  @apply w-full border border-gray-300 rounded-md p-2;
+}
+
+.ai-date {
+  @apply w-full border border-gray-300 rounded-md p-2;
+}
+
+.save-btn {
+  @apply bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition duration-300;
+}
